@@ -1,0 +1,18 @@
+extends Node2D
+
+var perto_da_porta = false
+
+func _process(delta):
+    if perto_da_porta and Input.is_action_just_pressed("interagir"):
+        abrir_porta()
+
+func abrir_porta():
+    print("Porta aberta 🚪")
+
+func _on_area_2d_body_entered(body):
+    if body.name == "Player":
+        perto_da_porta = true
+
+func _on_area_2d_body_exited(body):
+    if body.name == "Player":
+        perto_da_porta = false

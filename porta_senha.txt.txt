@@ -1,0 +1,28 @@
+extends Control
+
+var senha_correta = "1234"
+var tentativas = 0
+var max_tentativas = 3
+
+@onready var input = $LineEdit
+@onready var label = $Label
+
+func _ready():
+    $Button.pressed.connect(verificar_senha)
+
+func verificar_senha():
+    var tentativa = input.text
+
+    if tentativas >= max_tentativas:
+        label.text = "Acesso bloqueado ❌"
+        return
+
+    if tentativa.length() < 4:
+        label.text = "Senha muito curta"
+    elif tentativa == senha_correta:
+        label.text = "Senha correta 🚪"
+    else:
+        tentativas += 1
+        label.text = "Senha incorreta (" + str(tentativas) + "/3)"
+        if tentativas >= max_tentativas:
+            label.text = "Acesso bloqueado ❌"
